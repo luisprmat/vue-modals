@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 defineProps({
     users: Array,
 });
@@ -10,8 +10,8 @@ defineProps({
     <Head title="Users" />
 
     <AuthenticatedLayout title="Users">
-        <div class="overflow-hidden rounded-lg bg-white shadow">
-            <div class=" overflow-x-auto">
+        <div class="overflow-hidden rounded-lg bg-white shadow-sm">
+            <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -61,7 +61,28 @@ defineProps({
                                     {{ user.email }}
                                 </div>
                             </td>
-                            <td>Actions</td>
+                            <td
+                                class="space-x-3 px-6 py-4 text-right whitespace-nowrap"
+                            >
+                                <Link
+                                    class="text-indigo-600 hover:text-indigo-900"
+                                    :href="route('users.show', user)"
+                                >
+                                    View
+                                </Link>
+                                <Link
+                                    class="text-indigo-600 hover:text-indigo-900"
+                                    :href="route('users.edit', user)"
+                                >
+                                    Edit
+                                </Link>
+                                <button
+                                    class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                                    @click="openEditModal(user)"
+                                >
+                                    Edit in Modal
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

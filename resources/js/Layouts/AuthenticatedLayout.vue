@@ -1,5 +1,6 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -208,7 +209,13 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
-                <div class="py-12">
+                <div class="py-3"></div>
+                <Banner
+                    v-if="$page.props.status"
+                    :message="$page.props.status"
+                />
+
+                <div class="py-6">
                     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <slot />
                     </div>
