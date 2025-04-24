@@ -7,6 +7,10 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
+defineProps({
+    title: String,
+});
+
 const showingNavigationDropdown = ref(false);
 </script>
 
@@ -38,6 +42,12 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('users.index')"
+                                    :active="route().current('users.*')"
+                                >
+                                    Users
                                 </NavLink>
                             </div>
                         </div>
@@ -146,6 +156,12 @@ const showingNavigationDropdown = ref(false);
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('users.index')"
+                            :active="route().current('users.*')"
+                        >
+                            Users
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -180,18 +196,23 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header
-                class="bg-white shadow-sm dark:bg-gray-800"
-                v-if="$slots.header"
-            >
+            <header class="bg-white shadow-sm dark:bg-gray-800" v-if="title">
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                    <h2
+                        class="text-xl leading-tight font-semibold text-gray-800 dark:text-gray-200"
+                    >
+                        {{ title }}
+                    </h2>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <div class="py-12">
+                    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <slot />
+                    </div>
+                </div>
             </main>
         </div>
     </div>
