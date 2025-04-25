@@ -24,19 +24,19 @@ const updateUser = () => form.put(route('users.update', props.user.id));
 </script>
 
 <template>
-    <Head :title="`Edit ${user.name}`" />
+    <Head :title="`${$t('Edit')} ${user.name}`" />
 
-    <AuthenticatedLayout :title="`Edit ${user.name}`">
+    <AuthenticatedLayout :title="`${$t('Edit')} ${user.name}`">
         <Panel>
             <form class="space-y-6" @submit.prevent="updateUser">
                 <div>
-                    <InputLabel for="name">Name</InputLabel>
+                    <InputLabel for="name">{{ $t('Name') }}</InputLabel>
                     <TextInput v-model="form.name" class="mt-1 w-full" />
                     <InputError :message="form.errors.name" class="mt-2" />
                 </div>
 
                 <div>
-                    <InputLabel for="email">Email</InputLabel>
+                    <InputLabel for="email">{{ $t('Email') }}</InputLabel>
                     <TextInput v-model="form.email" class="mt-1 w-full" />
                     <InputError :message="form.errors.email" class="mt-2" />
                 </div>
@@ -45,9 +45,11 @@ const updateUser = () => form.put(route('users.update', props.user.id));
                     <SecondaryButton
                         @click="$inertia.visit(route('users.index'))"
                     >
-                        Cancel
+                        {{ $t('Cancel') }}
                     </SecondaryButton>
-                    <PrimaryButton type="submit">Update</PrimaryButton>
+                    <PrimaryButton type="submit">{{
+                        $t('Update')
+                    }}</PrimaryButton>
                 </div>
             </form>
         </Panel>

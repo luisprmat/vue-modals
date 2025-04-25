@@ -7,9 +7,9 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Users" />
+    <Head :title="$t('Users')" />
 
-    <AuthenticatedLayout title="Users">
+    <AuthenticatedLayout :title="$t('Users')">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
             <div class="overflow-x-auto">
                 <table
@@ -21,16 +21,16 @@ defineProps({
                                 scope="col"
                                 class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase dark:text-gray-400"
                             >
-                                User
+                                {{ $t('User') }}
                             </th>
                             <th
                                 scope="col"
                                 class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase dark:text-gray-400"
                             >
-                                Email
+                                {{ $t('Email') }}
                             </th>
                             <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Actions</span>
+                                <span class="sr-only">{{ $t('Actions') }}</span>
                             </th>
                         </tr>
                     </thead>
@@ -74,19 +74,19 @@ defineProps({
                                     class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     :href="route('users.show', user)"
                                 >
-                                    View
+                                    {{ $t('View') }}
                                 </Link>
                                 <Link
                                     class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     :href="route('users.edit', user)"
                                 >
-                                    Edit
+                                    {{ $t('Edit') }}
                                 </Link>
                                 <button
                                     class="cursor-pointer text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     @click="openEditModal(user)"
                                 >
-                                    Edit in Modal
+                                    {{ $t('Edit in Modal') }}
                                 </button>
                             </td>
                         </tr>

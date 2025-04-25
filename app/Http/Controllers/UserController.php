@@ -63,7 +63,7 @@ class UserController extends Controller
         $user->update($request->validated());
 
         return to_route('users.index')
-            ->with('status', 'User updated successfully.');
+            ->with('status', __('User updated successfully.'));
     }
 
     /**
@@ -74,6 +74,6 @@ class UserController extends Controller
         $user->delete();
 
         return to_route('users.index')
-            ->with('status', 'User deleted successfully.');
+            ->with('status', __('User deleted successfully.'));
     }
 }

@@ -42,13 +42,13 @@ const showingNavigationDropdown = ref(false);
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
-                                    Dashboard
+                                    {{ $t('Dashboard') }}
                                 </NavLink>
                                 <NavLink
                                     :href="route('users.index')"
                                     :active="route().current('users.*')"
                                 >
-                                    Users
+                                    {{ $t('Users') }}
                                 </NavLink>
                             </div>
                         </div>
@@ -85,14 +85,14 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            {{ $t('Profile') }}
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            {{ $t('Log Out') }}
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -155,13 +155,13 @@ const showingNavigationDropdown = ref(false);
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            Dashboard
+                            {{ $t('Dashboard') }}
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('users.index')"
                             :active="route().current('users.*')"
                         >
-                            Users
+                            {{ $t('Users') }}
                         </ResponsiveNavLink>
                     </div>
 
@@ -182,14 +182,14 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                {{ $t('Profile') }}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
-                                Log Out
+                                {{ $t('Log Out') }}
                             </ResponsiveNavLink>
                         </div>
                     </div>

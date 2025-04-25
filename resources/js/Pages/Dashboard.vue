@@ -5,9 +5,9 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="$t('Dashboard')" />
 
-    <AuthenticatedLayout title="Dashboard">
-        <Panel> You're logged in! </Panel>
+    <AuthenticatedLayout :title="$t('Dashboard')">
+        <Panel> {{ $t("You're logged in!") }} </Panel>
     </AuthenticatedLayout>
 </template>
