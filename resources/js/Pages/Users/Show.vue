@@ -24,7 +24,8 @@ defineProps({
                     />
                 </div>
                 <div class="text-xl">
-                    <span class="font-bold">Email:</span> <span class="italic">{{ user.email }}</span>
+                    <span class="font-bold">Email:</span>
+                    <span class="italic">{{ user.email }}</span>
                 </div>
             </div>
         </Panel>

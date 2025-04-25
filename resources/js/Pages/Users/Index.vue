@@ -10,20 +10,22 @@ defineProps({
     <Head title="Users" />
 
     <AuthenticatedLayout title="Users">
-        <div class="overflow-hidden rounded-lg bg-white shadow-sm">
+        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table
+                    class="min-w-full divide-y divide-gray-200 dark:divide-gray-600"
+                >
+                    <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
                             <th
                                 scope="col"
-                                class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase"
+                                class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase dark:text-gray-400"
                             >
                                 User
                             </th>
                             <th
                                 scope="col"
-                                class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase"
+                                class="px-6 py-3 text-left text-xs leading-none font-medium text-gray-500 uppercase dark:text-gray-400"
                             >
                                 Email
                             </th>
@@ -32,11 +34,13 @@ defineProps({
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 bg-white">
+                    <tbody
+                        class="divide-y divide-gray-200 bg-white dark:divide-gray-600 dark:bg-gray-800"
+                    >
                         <tr
                             v-for="user in users"
                             :key="user.id"
-                            class="hover:bg-gray-50"
+                            class="hover:bg-gray-50 dark:hover:bg-gray-700"
                         >
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -49,7 +53,7 @@ defineProps({
                                     </div>
                                     <div class="ml-4">
                                         <div
-                                            class="text-sm font-medium text-gray-900"
+                                            class="text-sm font-medium text-gray-900 dark:text-gray-50"
                                         >
                                             {{ user.name }}
                                         </div>
@@ -57,7 +61,9 @@ defineProps({
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-500">
+                                <div
+                                    class="text-sm text-gray-500 dark:text-gray-400"
+                                >
                                     {{ user.email }}
                                 </div>
                             </td>
@@ -65,19 +71,19 @@ defineProps({
                                 class="space-x-3 px-6 py-4 text-right whitespace-nowrap"
                             >
                                 <Link
-                                    class="text-indigo-600 hover:text-indigo-900"
+                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     :href="route('users.show', user)"
                                 >
                                     View
                                 </Link>
                                 <Link
-                                    class="text-indigo-600 hover:text-indigo-900"
+                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     :href="route('users.edit', user)"
                                 >
                                     Edit
                                 </Link>
                                 <button
-                                    class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+                                    class="cursor-pointer text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     @click="openEditModal(user)"
                                 >
                                     Edit in Modal
