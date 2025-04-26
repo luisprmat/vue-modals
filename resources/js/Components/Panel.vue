@@ -1,8 +1,6 @@
 <template>
-    <div
-        class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800"
-    >
-        <div class="p-6 text-gray-900 dark:text-gray-100">
+    <div class="bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+        <div class="px-4 py-5 sm:p-6">
             <slot />
         </div>
     </div>

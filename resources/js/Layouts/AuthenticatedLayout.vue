@@ -197,26 +197,31 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow-sm dark:bg-gray-800" v-if="title">
+            <header
+                v-if="$slots.header || title"
+                class="bg-white shadow-sm dark:bg-gray-800"
+            >
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <h2
-                        class="text-xl leading-tight font-semibold text-gray-800 dark:text-gray-200"
-                    >
-                        {{ title }}
-                    </h2>
+                    <slot name="header">
+                        <h2
+                            v-if="title"
+                            class="text-xl leading-tight font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                            {{ title }}
+                        </h2>
+                    </slot>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <div class="py-3"></div>
-                <Banner
-                    v-if="$page.props.status"
-                    :message="$page.props.status"
-                />
-
-                <div class="py-6">
+                <div class="py-12">
                     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <Banner
+                            v-if="$page.props.status"
+                            :message="$page.props.status"
+                        />
+
                         <slot />
                     </div>
                 </div>

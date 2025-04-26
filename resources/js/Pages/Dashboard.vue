@@ -8,6 +8,10 @@ import { Head } from '@inertiajs/vue3';
     <Head :title="$t('Dashboard')" />
 
     <AuthenticatedLayout :title="$t('Dashboard')">
-        <Panel> {{ $t("You're logged in!") }} </Panel>
+        <Panel class="overflow-hidden">
+            <div class="text-gray-900 dark:text-gray-100">
+                {{ $t("You're logged in!") }}
+            </div>
+        </Panel>
     </AuthenticatedLayout>
 </template>
