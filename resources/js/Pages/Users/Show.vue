@@ -1,14 +1,14 @@
 <script setup>
-import Panel from '@/Components/Panel.vue';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import Panel from '@/Components/Panel.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { Head, Link } from '@inertiajs/vue3'
 
 defineProps({
     user: {
         type: Object,
         required: true,
     },
-});
+})
 </script>
 
 <template>

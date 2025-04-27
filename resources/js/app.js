@@ -1,13 +1,13 @@
-import '../css/app.css';
-import './bootstrap';
+import '../css/app.css'
+import './bootstrap'
 
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { i18nVue } from 'laravel-vue-i18n';
-import { createApp, h } from 'vue';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { createInertiaApp } from '@inertiajs/vue3'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import { i18nVue } from 'laravel-vue-i18n'
+import { createApp, h } from 'vue'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -22,13 +22,13 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(i18nVue, {
                 resolve: async (lang) => {
-                    const langs = import.meta.glob('../../lang/*.json');
-                    return await langs[`../../lang/${lang}.json`]();
+                    const langs = import.meta.glob('../../lang/*.json')
+                    return await langs[`../../lang/${lang}.json`]()
                 },
             })
-            .mount(el);
+            .mount(el)
     },
     progress: {
         color: '#4B5563',
     },
-});
+})

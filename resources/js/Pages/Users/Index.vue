@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { Head, Link } from '@inertiajs/vue3'
 defineProps({
     users: Array,
-});
+})
 </script>
 
 <template>

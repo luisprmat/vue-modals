@@ -1,26 +1,26 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import Panel from '@/Components/Panel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import InputError from '@/Components/InputError.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import Panel from '@/Components/Panel.vue'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
+import SecondaryButton from '@/Components/SecondaryButton.vue'
+import TextInput from '@/Components/TextInput.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { Head, useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
     user: {
         type: Object,
         required: true,
     },
-});
+})
 
 const form = useForm({
     name: props.user.name,
     email: props.user.email,
-});
+})
 
-const updateUser = () => form.put(route('users.update', props.user.id));
+const updateUser = () => form.put(route('users.update', props.user.id))
 </script>
 
 <template>
