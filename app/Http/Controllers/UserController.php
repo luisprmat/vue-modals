@@ -65,8 +65,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return to_route('users.index')
-            ->with('status', __('User updated successfully.'));
+        return back()->with('status', __('User updated successfully.'));
     }
 
     /**

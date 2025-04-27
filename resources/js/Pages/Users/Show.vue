@@ -2,6 +2,8 @@
 import Panel from '@/Components/Panel.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import EditModal from './EditModal.vue'
 
 defineProps({
     user: {
@@ -9,27 +11,14 @@ defineProps({
         required: true,
     },
 })
+
+const editingUser = ref(null)
 </script>
 
 <template>
     <Head :title="user.name" />
 
     <AuthenticatedLayout :title="user.name">
-        <!-- <Panel>
-            <div class="flex space-x-6">
-                <div class="size-40 shrink-0">
-                    <img
-                        :src="`https://i.pravatar.cc/150?u=${user.id}`"
-                        :alt="user.name"
-                        class="size-40 rounded-full"
-                    />
-                </div>
-                <div class="text-xl">
-                    <span class="font-bold">{{ $t('Email') }}:</span>
-                    <span class="italic">{{ user.email }}</span>
-                </div>
-            </div>
-        </Panel> -->
         <Panel>
             <div class="flex items-center space-x-5">
                 <div class="shrink-0">
@@ -49,15 +38,23 @@ defineProps({
                         <span>{{ user.email }}</span>
                     </div>
                 </div>
-                <div class="shrink-0">
+                <div class="flex shrink-0 items-center space-x-2">
                     <Link
                         :href="route('users.edit', user)"
                         class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden active:bg-indigo-500 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:focus:ring-offset-indigo-600 dark:active:bg-indigo-400"
                     >
                         {{ $t('Edit :name', { name: $t('Profile') }) }}
                     </Link>
+                    <button
+                        @click="editingUser = user"
+                        class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden active:bg-indigo-500 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:focus:ring-offset-indigo-600 dark:active:bg-indigo-400"
+                    >
+                        {{ $t('Edit in Modal') }}
+                    </button>
                 </div>
             </div>
         </Panel>
     </AuthenticatedLayout>
+
+    <EditModal :user="editingUser" @close="editingUser = null" />
 </template>
