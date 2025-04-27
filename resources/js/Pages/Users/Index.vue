@@ -1,9 +1,38 @@
 <script setup>
+import InputError from '@/Components/InputError.vue'
+import InputLabel from '@/Components/InputLabel.vue'
+import PrimaryButton from '@/Components/PrimaryButton.vue'
+import SecondaryButton from '@/Components/SecondaryButton.vue'
+import TextInput from '@/Components/TextInput.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 defineProps({
     users: Array,
 })
+
+const editingUser = ref(false)
+
+const openEditModal = (user) => {
+    editingUser.value = user
+
+    form.name = user.name
+    form.email = user.email
+}
+
+const form = useForm({
+    name: '',
+    email: '',
+})
+
+const closeModal = () => {
+    editingUser.value = false
+}
+
+const updateUser = () =>
+    form.put(route('users.update', editingUser.value.id), {
+        onSuccess: closeModal,
+    })
 </script>
 
 <template>
@@ -95,4 +124,43 @@ defineProps({
             </div>
         </div>
     </AuthenticatedLayout>
+
+    <Teleport to="body">
+        <div
+            v-show="editingUser"
+            class="fixed inset-0 flex size-full items-center justify-center"
+        >
+            <div class="fixed inset-0 z-40 flex size-full bg-black/75" />
+            <div
+                class="z-50 w-full max-w-md rounded-lg bg-white p-4 dark:bg-gray-800"
+            >
+                <h1 class="mb-6 text-lg dark:text-white">
+                    {{ $t('Edit :name', { name: $t('User') }) }}
+                </h1>
+
+                <form class="space-y-6" @submit.prevent="updateUser">
+                    <div>
+                        <InputLabel for="name">{{ $t('Name') }}</InputLabel>
+                        <TextInput v-model="form.name" class="mt-1 w-full" />
+                        <InputError :message="form.errors.name" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="email">{{ $t('Email') }}</InputLabel>
+                        <TextInput v-model="form.email" class="mt-1 w-full" />
+                        <InputError :message="form.errors.email" class="mt-2" />
+                    </div>
+
+                    <div class="flex justify-end space-x-3">
+                        <SecondaryButton @click="closeModal">
+                            {{ $t('Cancel') }}
+                        </SecondaryButton>
+                        <PrimaryButton type="submit">{{
+                            $t('Update')
+                        }}</PrimaryButton>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </Teleport>
 </template>
