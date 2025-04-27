@@ -126,10 +126,12 @@ const updateUser = () =>
         </div>
     </AuthenticatedLayout>
 
-    <Modal :show="editingUser !== false" @close="closeModal">
-        <h1 class="mb-6 text-lg dark:text-white">
-            {{ $t('Edit :name', { name: $t('User') }) }}
-        </h1>
+    <Modal :show="editingUser !== false" @close="closeModal" size="md">
+        <template #title>
+            <h3 class="mb-6 text-lg font-bold dark:text-white">
+                {{ $t('Edit :name', { name: $t('User') }) }}
+            </h3>
+        </template>
 
         <form class="space-y-6" @submit.prevent="updateUser">
             <div>
