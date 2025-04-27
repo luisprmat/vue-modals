@@ -126,7 +126,7 @@ const updateUser = () =>
         </div>
     </AuthenticatedLayout>
 
-    <Modal :show="editingUser !== false">
+    <Modal :show="editingUser !== false" @close="closeModal">
         <h1 class="mb-6 text-lg dark:text-white">
             {{ $t('Edit :name', { name: $t('User') }) }}
         </h1>

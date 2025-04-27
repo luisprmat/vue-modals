@@ -1,10 +1,34 @@
 <script setup>
-defineProps({
+import { onMounted, onUnmounted } from 'vue'
+
+const props = defineProps({
     show: {
         type: Boolean,
         default: false,
     },
 })
+
+const emit = defineEmits(['close'])
+
+const close = () => {
+    emit('close')
+}
+
+const closeOnEscape = (e) => {
+    if (!props.show) return
+
+    if (e.key !== 'Escape') return
+
+    const focusedElementName = e.target.nodeName
+
+    if (['INPUT', 'SELECT'].includes(focusedElementName)) return
+
+    close()
+}
+
+onMounted(() => document.addEventListener('keydown', closeOnEscape))
+
+onUnmounted(() => document.removeEventListener('keydown', closeOnEscape))
 </script>
 
 <template>
@@ -25,6 +49,7 @@ defineProps({
                     <div
                         v-show="show"
                         class="fixed inset-0 z-40 flex size-full bg-black/75"
+                        @click="close"
                     />
                 </Transition>
 
