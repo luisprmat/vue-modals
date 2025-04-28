@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps({
     show: {
@@ -24,6 +24,14 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close', 'after-leave'])
+
+watch(
+    () => props.show,
+    (show) => {
+        document.body.style.overflow = show ? 'hidden' : ''
+    },
+    { immediate: true },
+)
 
 const close = () => {
     emit('close')
@@ -84,7 +92,7 @@ if (!props.closeManually) {
                 >
                     <div
                         v-show="show"
-                        class="z-50 w-full rounded-lg bg-white p-4 dark:bg-gray-800"
+                        class="z-50 max-h-[calc(100vh-2rem)] w-full overflow-auto rounded-lg bg-white p-4 dark:bg-gray-800 dark:text-gray-100"
                         :class="{
                             'max-w-sm': size === 'sm',
                             'max-w-md': size === 'md',
@@ -92,7 +100,11 @@ if (!props.closeManually) {
                             'max-w-xl': size === 'xl',
                         }"
                     >
-                        <slot name="title" />
+                        <slot name="title">
+                            <h1 class="mb-6 text-lg">
+                                {{ title }}
+                            </h1>
+                        </slot>
 
                         <slot />
                     </div>
