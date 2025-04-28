@@ -27,6 +27,7 @@ watch(
             form.email = user.email
         }
     },
+    { immediate: true },
 )
 
 const closeModal = () => {

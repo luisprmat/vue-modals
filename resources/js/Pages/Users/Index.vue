@@ -1,13 +1,10 @@
 <script setup>
+import ModalLink from '@/Components/ModalLink.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { ref } from 'vue'
-import EditModal from './EditModal.vue'
 defineProps({
     users: Array,
 })
-
-const editingUser = ref(null)
 </script>
 
 <template>
@@ -86,12 +83,12 @@ const editingUser = ref(null)
                                 >
                                     {{ $t('Edit') }}
                                 </Link>
-                                <button
+                                <ModalLink
+                                    :href="route('users.edit', user)"
                                     class="cursor-pointer text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
-                                    @click="editingUser = user"
                                 >
                                     {{ $t('Edit in Modal') }}
-                                </button>
+                                </ModalLink>
                             </td>
                         </tr>
                     </tbody>
@@ -99,6 +96,4 @@ const editingUser = ref(null)
             </div>
         </div>
     </AuthenticatedLayout>
-
-    <EditModal :user="editingUser" @close="editingUser = null" />
 </template>

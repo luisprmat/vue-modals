@@ -1,9 +1,8 @@
 <script setup>
+import ModalLink from '@/Components/ModalLink.vue'
 import Panel from '@/Components/Panel.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { ref } from 'vue'
-import EditModal from './EditModal.vue'
 
 defineProps({
     user: {
@@ -11,8 +10,6 @@ defineProps({
         required: true,
     },
 })
-
-const editingUser = ref(null)
 </script>
 
 <template>
@@ -45,16 +42,14 @@ const editingUser = ref(null)
                     >
                         {{ $t('Edit :name', { name: $t('Profile') }) }}
                     </Link>
-                    <button
-                        @click="editingUser = user"
+                    <ModalLink
+                        :href="route('users.edit', user)"
                         class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden active:bg-indigo-500 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:focus:ring-offset-indigo-600 dark:active:bg-indigo-400"
                     >
                         {{ $t('Edit in Modal') }}
-                    </button>
+                    </ModalLink>
                 </div>
             </div>
         </Panel>
     </AuthenticatedLayout>
-
-    <EditModal :user="editingUser" @close="editingUser = null" />
 </template>
