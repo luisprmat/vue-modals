@@ -1,7 +1,10 @@
+import { usePage } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { ref } from 'vue'
 
 const modal = ref(null)
+
+const page = usePage()
 
 function open(href) {
     axios
@@ -9,6 +12,7 @@ function open(href) {
             headers: {
                 'X-Inertia': true,
                 'X-Modal': true,
+                'X-Inertia-Version': page.version,
             },
         })
         .then((response) => {
