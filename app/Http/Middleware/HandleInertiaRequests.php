@@ -29,7 +29,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        if($request->wantsModal()) {
+        if ($request->wantsModal()) {
             return [];
         }
 

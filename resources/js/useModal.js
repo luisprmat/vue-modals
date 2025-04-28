@@ -7,6 +7,7 @@ const modal = ref(null)
 const page = usePage()
 
 const setModal = (data) => {
+    if (modal.value) return
     resolvePageComponent(
         `./Pages/${data.component}.vue`,
         import.meta.glob('./Pages/**/*.vue'),

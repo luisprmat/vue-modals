@@ -7,6 +7,7 @@ import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
 import { close, modal, reset, setModal } from '@/useModal'
 import { Link, usePage } from '@inertiajs/vue3'
+import axios from 'axios'
 import { ref, watch } from 'vue'
 
 defineProps({
@@ -15,12 +16,22 @@ defineProps({
 
 const page = usePage()
 
+const addBaseUrlToRequest = (config) => {
+    if (page.props._modal) {
+        config.headers['X-Modal-Base-Url'] = page.props._modal.baseUrl
+    }
+
+    return config
+}
+
 watch(
     () => page.props._modal,
     (modal) => {
         if (modal) {
+            axios.interceptors.request.use(addBaseUrlToRequest)
             setModal({ ...modal })
         } else {
+            axios.interceptors.request.eject(addBaseUrlToRequest)
             close()
         }
     },

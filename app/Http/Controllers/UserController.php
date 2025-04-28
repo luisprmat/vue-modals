@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return back()->with('status', __('User updated successfully.'));
+        return Inertia::backFromModal()->with('status', __('User updated successfully.'));
     }
 
     /**
