@@ -43,7 +43,6 @@ const updateUser = () =>
 
 <template>
     <Modal
-        :show="user !== null"
         @close="closeModal"
         size="md"
         :title="$t('Edit :name', { name: $t('User') })"

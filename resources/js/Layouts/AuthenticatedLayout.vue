@@ -5,7 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
 import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import { close, modal } from '@/useModal'
+import { close, modal, reset } from '@/useModal'
 import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
@@ -20,8 +20,10 @@ const showingNavigationDropdown = ref(false)
     <!-- modal -->
     <modal.resolvedComponent.default
         v-if="modal"
+        :show="modal.show"
         v-bind="modal.props"
         @close="close"
+        @after-leave="reset"
     />
 
     <div>
