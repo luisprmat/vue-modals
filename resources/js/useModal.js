@@ -6,28 +6,29 @@ const modal = ref(null)
 
 const page = usePage()
 
-const setModal = (data) => {
+const setModal = async (data) => {
     if (modal.value) return
-    resolvePageComponent(
+
+    const component = await resolvePageComponent(
         `./Pages/${data.component}.vue`,
         import.meta.glob('./Pages/**/*.vue'),
-    ).then((component) => {
-        modal.value = data
-        modal.value.resolvedComponent = component
-        modal.value.show = true
-    })
+    )
+
+    modal.value = data
+    modal.value.resolvedComponent = component
+    modal.value.show = true
 }
 
-function open(href) {
-    axios
-        .get(href, {
-            headers: {
-                'X-Inertia': true,
-                'X-Modal': true,
-                'X-Inertia-Version': page.version,
-            },
-        })
-        .then((response) => setModal(response.data))
+async function open(href) {
+    response = await axios.get(href, {
+        headers: {
+            'X-Inertia': true,
+            'X-Modal': true,
+            'X-Inertia-Version': page.version,
+        },
+    })
+
+    setModal(response.data)
 }
 
 function close() {
