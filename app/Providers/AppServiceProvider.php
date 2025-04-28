@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         ResponseFactory::macro('modal', function (string $component, array $props, string $baseUrl) {
+            $baseUrl = request()->header('referer') ?: $baseUrl;
+
             $request = Request::create($baseUrl);
             $route = Route::getRoutes()->match($request);
 
@@ -32,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
                 'props' => $props,
                 'baseUrl' => $baseUrl,
             ]);
+
+            app(SubstituteBindings::class)->handle($request, fn() => null);
 
             $response = $route->run();
 

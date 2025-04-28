@@ -5,13 +5,27 @@ import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
 import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import { close, modal, reset } from '@/useModal'
-import { Link } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { close, modal, reset, setModal } from '@/useModal'
+import { Link, usePage } from '@inertiajs/vue3'
+import { ref, watch } from 'vue'
 
 defineProps({
     title: String,
 })
+
+const page = usePage()
+
+watch(
+    () => page.props._modal,
+    (modal) => {
+        if (modal) {
+            setModal({ ...modal })
+        } else {
+            close()
+        }
+    },
+    { immediate: true },
+)
 
 const showingNavigationDropdown = ref(false)
 </script>
