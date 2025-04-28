@@ -92,7 +92,7 @@ if (!props.closeManually) {
                 >
                     <div
                         v-show="show"
-                        class="z-50 max-h-[calc(100vh-2rem)] w-full overflow-auto rounded-lg bg-white p-4 dark:bg-gray-800 dark:text-gray-100"
+                        class="scrollbar:w-1.5 scrollbar:h-1.5 scrollbar:bg-transparent scrollbar-track:bg-gray-100 scrollbar-thumb:rounded scrollbar-thumb:bg-gray-300 scrollbar-track:rounded dark:scrollbar-track:bg-gray-500/10 dark:scrollbar-thumb:bg-gray-500/50 z-50 max-h-[calc(100vh-2rem)] w-full overflow-auto rounded-lg bg-white p-4 dark:bg-gray-800 dark:text-gray-100"
                         :class="{
                             'max-w-sm': size === 'sm',
                             'max-w-md': size === 'md',
