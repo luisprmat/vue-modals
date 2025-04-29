@@ -37,6 +37,7 @@ defineProps({
                 </div>
                 <div class="flex shrink-0 items-center space-x-2">
                     <Link
+                        :dusk="`edit-user-${user.id}`"
                         :href="route('users.edit', user)"
                         class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-150 ease-in-out hover:bg-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden active:bg-indigo-500 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:focus:ring-offset-indigo-600 dark:active:bg-indigo-400"
                     >

@@ -1,43 +1,51 @@
 <?php
 
 use App\Models\User;
-use Laravel\Dusk\Browser;
+use Tests\Browser;
 
-it('can open a modal and close', function () {
-    $this->browse(function (Browser $browser) {
-        $user = User::orderBy('name')->firstOrFail();
+function firstUser(): User
+{
+    return User::orderBy('name')->firstOrFail();
+}
 
-        $browser
-            ->loginAs(1)
-            ->visit(route('users.index'))
-            ->waitFor('table')
-            ->press('@edit-user-'.$user->id)
-            ->waitFor('@modal-content')
+function openEditModal(Browser $browser, User $user, string $baseUrl): Browser
+{
+    return $browser
+        ->loginAs(1)
+        ->visit($baseUrl)
+        ->waitFor('@edit-user-'.$user->id)
+        ->press('@edit-user-'.$user->id)
+        ->waitForModal();
+}
+
+dataset('baseUrl', [
+    'Base URL users.index' => fn () => route('users.index'),
+    'Base URL users.show' => fn () => route('users.show', firstUser()),
+]);
+
+it('can open a modal and close', function (string $baseUrl) {
+    $this->browse(function (Browser $browser) use ($baseUrl) {
+        $user = firstUser();
+
+        openEditModal($browser, $user, $baseUrl)
             ->assertUrlIs(route('users.edit', $user))
-            ->within('@modal-content', function (Browser $browser) {
-                $browser->press('@btn-cancel');
-            })
-            ->waitUntilMissingText('@modal-wrapper')
+            ->withinModal(fn (Browser $browser) => $browser->press('@btn-cancel'))
+            ->waitUntilMissingModal()
             // ->pause(500) // I must wait changes in URL after close modal
-            ->waitForRoute('users.index') // Or
-            ->assertUrlIs(route('users.index'));
+            ->waitForLocation($baseUrl) // Or
+            ->assertUrlIs($baseUrl);
     });
-});
+})->with('baseUrl');
 
-it('can update a user', function () {
-    $this->browse(function (Browser $browser) {
-        $user = User::orderBy('name')->firstOrFail();
+it('can update a user', function (string $baseUrl) {
+    $this->browse(function (Browser $browser) use ($baseUrl) {
+        $user = firstUser();
 
         $newName = fake()->name();
         $newEmail = fake()->safeEmail();
 
-        $browser
-            ->loginAs(1)
-            ->visit(route('users.index'))
-            ->waitFor('table')
-            ->press('@edit-user-'.$user->id)
-            ->waitFor('@modal-content')
-            ->within('@modal-content', function (Browser $browser) use ($newName, $newEmail) {
+        openEditModal($browser, $user, $baseUrl)
+            ->withinModal(function (Browser $browser) use ($newName, $newEmail) {
                 $browser->type('#name', $newName)
                     ->type('#email', $newEmail)
                     ->press('@btn-update');
@@ -51,19 +59,14 @@ it('can update a user', function () {
             ->and($user->email)
             ->toBe($newEmail);
     });
-});
+})->with('baseUrl');
 
-it('can show a validation error within the modal', function () {
-    $this->browse(function (Browser $browser) {
+it('can show a validation error within the modal', function ($baseUrl) {
+    $this->browse(function (Browser $browser) use ($baseUrl) {
         $user = User::orderBy('name')->firstOrFail();
 
-        $browser
-            ->loginAs(1)
-            ->visit(route('users.index'))
-            ->waitFor('table')
-            ->press('@edit-user-'.$user->id)
-            ->waitFor('@modal-content')
-            ->within('@modal-content', function (Browser $browser) {
+        openEditModal($browser, $user, $baseUrl)
+            ->withinModal(function (Browser $browser) {
                 $browser->type('#email', 'not-valid-email')
                     ->press('@btn-update')
                     ->waitForText(__('validation.email', ['attribute' => __('validation.attributes.email')]));
@@ -72,4 +75,4 @@ it('can show a validation error within the modal', function () {
         expect($user->fresh()->email)
             ->not->toBe('not-valid-email');
     });
-});
+})->with('baseUrl');
