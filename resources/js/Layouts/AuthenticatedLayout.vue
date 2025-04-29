@@ -1,55 +1,23 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
+import BackendModal from '@/Components/BackendModal.vue'
 import Banner from '@/Components/Banner.vue'
 import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
 import NavLink from '@/Components/NavLink.vue'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import { close, modal, reset, setModal } from '@/useModal'
-import { Link, usePage } from '@inertiajs/vue3'
-import axios from 'axios'
-import { ref, watch } from 'vue'
+import { Link } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 defineProps({
     title: String,
 })
 
-const page = usePage()
-
-const addBaseUrlToRequest = (config) => {
-    if (page.props._modal) {
-        config.headers['X-Modal-Base-Url'] = page.props._modal.baseUrl
-    }
-
-    return config
-}
-
-watch(
-    () => page.props._modal,
-    (modal) => {
-        if (modal) {
-            axios.interceptors.request.use(addBaseUrlToRequest)
-            setModal({ ...modal })
-        } else {
-            axios.interceptors.request.eject(addBaseUrlToRequest)
-            close()
-        }
-    },
-    { immediate: true },
-)
-
 const showingNavigationDropdown = ref(false)
 </script>
 
 <template>
-    <!-- modal -->
-    <modal.resolvedComponent.default
-        v-if="modal"
-        :show="modal.show"
-        v-bind="modal.props"
-        @close="close"
-        @after-leave="reset"
-    />
+    <BackendModal />
 
     <div>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
