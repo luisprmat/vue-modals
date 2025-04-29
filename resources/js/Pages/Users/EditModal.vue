@@ -50,21 +50,27 @@ const updateUser = () =>
         <form class="space-y-6" @submit.prevent="updateUser">
             <div>
                 <InputLabel for="name">{{ $t('Name') }}</InputLabel>
-                <TextInput v-model="form.name" class="mt-1 w-full" />
+                <TextInput id="name" v-model="form.name" class="mt-1 w-full" />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
 
             <div>
                 <InputLabel for="email">{{ $t('Email') }}</InputLabel>
-                <TextInput v-model="form.email" class="mt-1 w-full" />
+                <TextInput
+                    id="email"
+                    v-model="form.email"
+                    class="mt-1 w-full"
+                />
                 <InputError :message="form.errors.email" class="mt-2" />
             </div>
 
             <div class="flex justify-end space-x-3">
-                <SecondaryButton @click="closeModal">
+                <SecondaryButton dusk="btn-cancel" @click="closeModal">
                     {{ $t('Cancel') }}
                 </SecondaryButton>
-                <PrimaryButton type="submit">{{ $t('Update') }}</PrimaryButton>
+                <PrimaryButton dusk="btn-update" type="submit">{{
+                    $t('Update')
+                }}</PrimaryButton>
             </div>
         </form>
     </Modal>

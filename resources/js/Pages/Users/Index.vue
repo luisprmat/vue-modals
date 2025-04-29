@@ -78,8 +78,9 @@ defineProps({
                                     {{ $t('View') }}
                                 </Link>
                                 <Link
-                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                     :href="route('users.edit', user)"
+                                    :dusk="`edit-user-${user.id}`"
+                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
                                 >
                                     {{ $t('Edit') }}
                                 </Link>
